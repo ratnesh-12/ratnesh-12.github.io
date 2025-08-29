@@ -229,17 +229,17 @@ body {
 }
 
 .edu-logo {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--border-color);
+    object-fit: contain;
+    background-color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-color);
-    color: var(--text-primary);
-    font-weight: 700;
-    font-size: 12px;
+    color: var(--bg-color);
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .edu-school {
@@ -249,12 +249,12 @@ body {
 }
 
 .edu-degree {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-secondary);
 }
 
 .edu-period {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-secondary);
     white-space: nowrap;
 }
