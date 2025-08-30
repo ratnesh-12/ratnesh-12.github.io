@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize theme
     initializeTheme();
-
-    // Initialize starfield
-    initStars();
 });
 
 // Add subtle hover effects to skill tags
@@ -31,6 +28,7 @@ const socialLinks = document.getElementById('socialLinks');
 let isOpen = false;
 
 if (socialToggle && socialLinks) {
+    // Toggle social links visibility
     socialToggle.addEventListener('click', function() {
         isOpen = !isOpen;
         
@@ -45,6 +43,7 @@ if (socialToggle && socialLinks) {
         }
     });
 
+    // Add keyboard support for social toggle (accessibility)
     socialToggle.addEventListener('keydown', function(event) {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
@@ -52,6 +51,7 @@ if (socialToggle && socialLinks) {
         }
     });
 
+    // Close social links when clicking outside the social section
     document.addEventListener('click', function(event) {
         if (isOpen && !event.target.closest('.social-section')) {
             isOpen = false;
@@ -67,10 +67,12 @@ function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
     
+    // Apply saved theme
     document.documentElement.setAttribute('data-theme', savedTheme);
     
     if (!themeToggle) return;
 
+    // Theme toggle event listener
     themeToggle.addEventListener('click', function() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -78,6 +80,7 @@ function initializeTheme() {
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         
+        // Add a little animation effect
         themeToggle.style.transform = 'scale(0.95)';
         setTimeout(() => {
             themeToggle.style.transform = 'scale(1)';
@@ -85,6 +88,7 @@ function initializeTheme() {
     });
 }
 
+// Detect system theme preference
 function detectSystemTheme() {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         return 'dark';
@@ -92,6 +96,7 @@ function detectSystemTheme() {
     return 'light';
 }
 
+// Listen for system theme changes
 if (window.matchMedia) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
         if (!localStorage.getItem('theme')) {
@@ -101,7 +106,7 @@ if (window.matchMedia) {
     });
 }
 
-// Smooth scrolling
+// Optional: Add smooth scrolling for any internal links (if added in future)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -116,52 +121,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
-/* -----------------------------
-   STARFIELD BACKGROUND
--------------------------------- */
-function initStars() {
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-
-    let stars = [];
-    const numStars = 120;
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        stars = createStars();
-    }
-
-    function createStars() {
-        const arr = [];
-        for (let i = 0; i < numStars; i++) {
-            const anchorX = Math.random() * canvas.width;
-            const anchorY = Math.random() * canvas.height;
-            const orbitRadius = Math.random() * 40 + 20; // each star has its own orbit radius
-            const angle = Math.random() * Math.PI * 2;
-            const speed = (Math.random() * 0.002) + 0.001; // slow drifting
-            const size = Math.random() * 2;
-            arr.push({ anchorX, anchorY, orbitRadius, angle, speed, size });
-        }
-        return arr;
-    }
-
-    function drawStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "white";
-        stars.forEach(star => {
-            const x = star.anchorX + star.orbitRadius * Math.cos(star.angle);
-            const y = star.anchorY + star.orbitRadius * Math.sin(star.angle);
-            ctx.beginPath();
-            ctx.arc(x, y, star.size, 0, Math.PI * 2);
-            ctx.fill();
-            star.angle += star.speed;
-        });
-        requestAnimationFrame(drawStars);
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    drawStars();
-}
