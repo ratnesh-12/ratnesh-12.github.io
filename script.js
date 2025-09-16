@@ -1,4 +1,4 @@
-// Initialize fade-in animations on page load
+//For initialize fade-in animations on page load
 document.addEventListener('DOMContentLoaded', function() {
     const elements = document.querySelectorAll('.fade-in');
     elements.forEach((el, index) => {
@@ -6,15 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
             el.style.animationPlayState = 'running';
         }, index * 100);
     });
-
-    // Initialize theme
     initializeTheme();
-
-    // Initialize starfield
     initStars();
 });
 
-// Add subtle hover effects to skill tags
+//Added subtle hover effects to skill tags
 document.querySelectorAll('.skill-tag').forEach(tag => {
     tag.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-1px)';
@@ -25,7 +21,7 @@ document.querySelectorAll('.skill-tag').forEach(tag => {
     });
 });
 
-// Social links toggle functionality (guarded in case elements don't exist)
+//Social links toggle functionality
 const socialToggle = document.getElementById('socialToggle');
 const socialLinks = document.getElementById('socialLinks');
 let isOpen = false;
@@ -62,7 +58,7 @@ if (socialToggle && socialLinks) {
     });
 }
 
-// Theme Toggle Functionality
+//Theme Toggle Functionality
 function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -101,7 +97,7 @@ if (window.matchMedia) {
     });
 }
 
-// Smooth scrolling
+//Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -117,9 +113,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-/* -----------------------------
-   STARFIELD BACKGROUND
--------------------------------- */
+//Starfield Background
 function initStars() {
     const canvas = document.getElementById('starfield');
     const ctx = canvas.getContext('2d');
@@ -138,9 +132,9 @@ function initStars() {
         for (let i = 0; i < numStars; i++) {
             const anchorX = Math.random() * canvas.width;
             const anchorY = Math.random() * canvas.height;
-            const orbitRadius = Math.random() * 40 + 20; // each star has its own orbit radius
+            const orbitRadius = Math.random() * 40 + 20; //for each star to have its own orbit
             const angle = Math.random() * Math.PI * 2;
-            const speed = (Math.random() * 0.002) + 0.001; // slow drifting
+            const speed = (Math.random() * 0.002) + 0.001; //for slow drifting
             const size = Math.random() * 2;
             arr.push({ anchorX, anchorY, orbitRadius, angle, speed, size });
         }
